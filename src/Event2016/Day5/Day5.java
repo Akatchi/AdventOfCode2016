@@ -35,7 +35,8 @@ public class Day5 implements Day
 
             if(isValidHash(hash)) {
                 password += hash.charAt(5);
-                logger.logMessage(String.format("Updated the part 1 password to: %s.", password), LogLevel.INFO);
+                logger.logMessage(String.format("Updated the part 1 password to: %s. (iteration: %d)",
+                        password, counter), LogLevel.INFO);
             }
 
             counter++;
@@ -66,7 +67,8 @@ public class Day5 implements Day
                 // If the password is updated, we will update our counter as well.
                 if(password.charAt(index) == hash.charAt(6)) {
                     passwordUpdateCounter++;
-                    logger.logMessage(String.format("Updated the part 2 password to: %s.", password), LogLevel.INFO);
+                    logger.logMessage(String.format("Updated the part 2 password to: %s. (iteration: %d)",
+                            password, counter), LogLevel.INFO);
                 }
             }
 
