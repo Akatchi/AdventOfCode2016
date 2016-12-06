@@ -1,7 +1,8 @@
 package Event2016.Day4;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import Event2016.Helpers.Models.CharacterOccurance;
+import Event2016.Helpers.StringOccuranceCounter;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,41 +12,25 @@ public class Room
     private String roomName;
     private int sectorId;
     private boolean isReal;
+    private StringOccuranceCounter stringOccuranceCounter;
 
     public Room(String encryptedName)
     {
         sectorId = 0;
         isReal = false;
+        stringOccuranceCounter = new StringOccuranceCounter();
 
         // Refactor this to a builder pattern for memory efficiency
         Pattern pattern = Pattern.compile("(\\D*)-(\\d*)\\[(\\w*)\\]");
         Matcher matcher = pattern.matcher(encryptedName);
 
         if(matcher.matches()) {
-            List<CharacterOccurance> characterOccurrances = countCharacterOccurances(matcher.group(1));
+            List<CharacterOccurance> characterOccurrances = stringOccuranceCounter
+                    .countCharacterOccurancesInString(matcher.group(1));
             setSectorId(Integer.valueOf(matcher.group(2)));
             setIsReal(isChecksumValid(matcher.group(3), characterOccurrances));
             setRoomName(decodeRoomName(matcher.group(1), getSectorId()));
         }
-    }
-
-    private List<CharacterOccurance> countCharacterOccurances(String stringToCheck)
-    {
-        List<CharacterOccurance> characterOccurances = new ArrayList<>();
-        char[] possibleCharacters = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-
-        for(int i = 0; i < possibleCharacters.length; i++) {
-            characterOccurances.add(
-                    new CharacterOccurance(
-                        possibleCharacters[i],
-                        stringToCheck.length() - stringToCheck.replace(String.valueOf(possibleCharacters[i]), "").length()
-                    )
-            );
-        }
-
-        Collections.sort(characterOccurances);
-
-        return characterOccurances;
     }
 
     private boolean isChecksumValid(String checksum, List<CharacterOccurance> characterOccurances)

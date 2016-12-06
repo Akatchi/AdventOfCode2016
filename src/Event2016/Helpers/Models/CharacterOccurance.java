@@ -1,4 +1,4 @@
-package Event2016.Day4;
+package Event2016.Helpers.Models;
 
 public class CharacterOccurance implements Comparable<CharacterOccurance>
 {
@@ -49,8 +49,10 @@ public class CharacterOccurance implements Comparable<CharacterOccurance>
 
             if(currentAlphabeticalIndex > otherAlphabeticalIndex) {
                 return 1;
-            } else {
+            } else if(currentAlphabeticalIndex < otherAlphabeticalIndex) {
                 return -1;
+            } else {
+                return 0;
             }
         }
     }

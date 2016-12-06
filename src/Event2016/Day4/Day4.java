@@ -14,7 +14,7 @@ public class Day4 implements Day
     {
         int combinedSectorId = 0;
         int northPoleSectorId = 0;
-        rooms = new ArrayList<Room>();
+        rooms = new ArrayList<>();
         final List<String> input = FileReader.readFile("C:/Developing/AdventOfCode/src/Event2016/Day4/input");
 
         input.forEach(item -> rooms.add(new Room(item)));
